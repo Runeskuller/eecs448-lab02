@@ -33,7 +33,7 @@ int LinkedList<T>::size() const
 	Node<T>* tempPtr = m_front;
 	do {
 		if (tempPtr != nullptr) {
-			tempSize++
+			tempSize++;
 			tempPtr = tempPtr->getNext();
 		}
 	} while(tempPtr != nullptr);
@@ -106,24 +106,27 @@ void LinkedList<T>::addFront(T value)
 template <typename T>
 bool LinkedList<T>::removeBack()
 {
-	Node<T>* lastNode = m_front;
-	Node<T>* secondintoLast = m_front;
+	Node<T>* lastNode = nullptr;
+	Node<T>* secondintoLast = nullptr;
 	bool isRemoved = false;
 
  	if (m_front != nullptr) {
-		while (lastNode != nullptr) {
-	 		lastNode = lastNode->getNext();
-	 	}
+		lastNode = m_front;
+		while (lastNode->getNext() != nullptr) {
+			lastNode = lastNode->getNext();
+		}
 
-	 	while (secondintoLast->getNext() != lastNode()) {
-	 		secondintoLast = secondintoLast->getNext();
-	 	}
+		if (lastNode != m_front) {
+			secondintoLast = m_front;
+			while (secondintoLast->getNext() != lastNode) {
+				secondintoLast = secondintoLast->getNext();
+			}
+			secondintoLast->setNext(nullptr);
+		}
 
 		delete lastNode;
-		secondintoLast->setNext(nullptr);
 		isRemoved = true;
- }
-
+	 }
 
 	return(isRemoved);
 }
